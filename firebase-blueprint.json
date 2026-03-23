@@ -1,0 +1,262 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Public student profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "branch": { "type": "string" },
+        "year": { "type": "string" },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "bio": { "type": "string" },
+        "github": { "type": "string" },
+        "portfolio": { "type": "string" },
+        "linkedin": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "experiences": { "type": "array", "items": { "$ref": "Experience" } },
+        "portfolioItems": { "type": "array", "items": { "$ref": "PortfolioItem" } },
+        "followersCount": { "type": "number" },
+        "followingCount": { "type": "number" }
+      },
+      "required": ["uid", "displayName"]
+    },
+    "PrivateUser": {
+      "title": "Private User Data",
+      "description": "Sensitive user information",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email"]
+    },
+    "Experience": {
+      "title": "Experience",
+      "description": "Work experience entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "company": { "type": "string" },
+        "position": { "type": "string" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "company", "position", "startDate"]
+    },
+    "PortfolioItem": {
+      "title": "Portfolio Item",
+      "description": "Portfolio project entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "url": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["id", "title", "description"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Community project showcase entry",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "githubUrl": { "type": "string" },
+        "demoUrl": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["ownerUid", "ownerName", "title", "description", "createdAt"]
+    },
+    "Resource": {
+      "title": "Resource",
+      "description": "Learning resource shared by community",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "type": { "type": "string", "enum": ["link", "roadmap", "pdf", "other"] },
+        "url": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["ownerUid", "ownerName", "title", "url", "type", "createdAt"]
+    },
+    "Follow": {
+      "title": "Follow",
+      "description": "Social follow relationship",
+      "type": "object",
+      "properties": {
+        "followerId": { "type": "string" },
+        "followingId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["followerId", "followingId", "createdAt"]
+    },
+    "Chat": {
+      "title": "Chat",
+      "description": "Chat session between users",
+      "type": "object",
+      "properties": {
+        "participants": { "type": "array", "items": { "type": "string" } },
+        "lastMessage": { "type": "string" },
+        "lastMessageAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "isGroup": { "type": "boolean" },
+        "name": { "type": "string" },
+        "groupImage": { "type": "string" }
+      },
+      "required": ["participants", "updatedAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Direct message in a chat",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["chatId", "senderId", "text", "createdAt"]
+    },
+    "Team": {
+      "title": "Team",
+      "description": "Student team for projects",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerUid": { "type": "string" },
+        "members": { "type": "array", "items": { "type": "string" } },
+        "requiredSkills": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string" },
+        "chatId": { "type": "string" }
+      },
+      "required": ["name", "ownerUid", "members", "createdAt"]
+    },
+    "TeamRequest": {
+      "title": "Team Request",
+      "description": "Request to join a team",
+      "type": "object",
+      "properties": {
+        "teamId": { "type": "string" },
+        "teamName": { "type": "string" },
+        "senderId": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["teamId", "teamName", "senderId", "receiverId", "status", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notification",
+      "type": "object",
+      "properties": {
+        "recipientId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderPhoto": { "type": "string" },
+        "type": { "type": "string", "enum": ["follow", "team_invite", "message", "team_accepted"] },
+        "relatedId": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["recipientId", "senderId", "senderName", "type", "read", "createdAt"]
+    },
+    "WallPost": {
+      "title": "Wall Post",
+      "description": "A question or resource request on the community wall",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "type": { "type": "string", "enum": ["doubt", "resource_request"] },
+        "createdAt": { "type": "string" },
+        "answerCount": { "type": "number" }
+      },
+      "required": ["id", "authorId", "authorName", "text", "type", "createdAt"]
+    },
+    "WallAnswer": {
+      "title": "Wall Answer",
+      "description": "An answer to a wall post",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "postId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "postId", "authorId", "authorName", "text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "profiles": {
+      "schema": "UserProfile",
+      "description": "Collection of public user profiles"
+    },
+    "users": {
+      "schema": "PrivateUser",
+      "description": "Collection of private user data"
+    },
+    "projects": {
+      "schema": "Project",
+      "description": "Collection of community projects"
+    },
+    "resources": {
+      "schema": "Resource",
+      "description": "Collection of learning resources"
+    },
+    "follows": {
+      "schema": "Follow",
+      "description": "Collection of follow relationships"
+    },
+    "chats": {
+      "schema": "Chat",
+      "description": "Collection of chat sessions"
+    },
+    "chats/{chatId}/messages": {
+      "schema": "Message",
+      "description": "Subcollection of messages for a chat"
+    },
+    "teams": {
+      "schema": "Team",
+      "description": "Collection of student teams"
+    },
+    "teamRequests": {
+      "schema": "TeamRequest",
+      "description": "Collection of team join requests"
+    },
+    "notifications": {
+      "schema": "Notification",
+      "description": "Collection of user notifications"
+    },
+    "wall": {
+      "schema": "WallPost",
+      "description": "Collection of community wall posts"
+    },
+    "wall/{postId}/answers": {
+      "schema": "WallAnswer",
+      "description": "Subcollection of answers for a wall post"
+    }
+  }
+}
